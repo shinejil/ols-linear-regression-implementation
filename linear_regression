@@ -1,0 +1,52 @@
+
+class linear_regression():
+    
+    def __init__(self,lst1,lst2):
+        self.lst1=lst1
+        self.lst2=lst2
+        self.n=len(lst1)
+        
+    def sigma_xy(self):
+        sigma=0
+        #n=len(lst1)
+        for (i,j) in zip(self.lst1,self.lst2):
+            xy=i*j
+            sigma+=xy
+        return sigma   
+
+    def sigma_x_sigma_y(self):
+        sigma_x=sum(self.lst1)
+        sigma_y=sum(self.lst2)
+        sigma=sigma_x*sigma_y
+        return sigma    
+    
+    def sigma_x_square(self):
+        sigma=0
+        for i in self.lst1:
+            sigma+=i**2
+        return sigma
+
+    def sigma_x_all_square(self):
+        k=sum(self.lst1)
+        sigma=k**2
+        return sigma
+
+
+    def slope(self):
+        #n=len(lst1)
+        m=((self.n* linear_regression.sigma_xy(self) )- linear_regression.sigma_x_sigma_y(self))/((self.n* linear_regression.sigma_x_square(self)) - linear_regression.sigma_x_all_square(self))
+        return m
+    
+    def intercept(self):
+        #n=len(lst1)
+        sigma_y=sum(self.lst2)
+        sigma_x=sum(self.lst1)
+        c=((sigma_y- (linear_regression.slope(self)*sigma_x))/self.n)
+        return c   
+        
+        
+    def predict(self,x):
+        y=(linear_regression.slope(self)*x)+(linear_regression.intercept(self))
+        return y
+
+ 
